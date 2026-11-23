@@ -40,6 +40,19 @@
       <small class="err" data-for="reg"></small>
     </label>
 
+    <label>
+      <span>Gambar pelajar</span>
+      <div class="foto-row">
+        <div id="preview" class="preview" aria-hidden="true"></div>
+        <div class="foto-help">
+          <span class="file-btn">Pilih gambar</span>
+          <small>Gambar muka depan, latar belakang cerah. Muka di tengah gambar.</small>
+        </div>
+      </div>
+      <input id="foto" type="file" accept="image/*" class="file-input">
+      <small class="err" data-for="foto"></small>
+    </label>
+
     <button id="btn" type="submit">Hantar maklumat</button>
     <p id="status" role="status"></p>
   </form>
@@ -62,7 +75,7 @@
     <img src="logo.png" class="card-logo" alt="">
     <h2 class="card-univ">POLITEKNIK SULTAN ABDUL<br>HALIM MU’ ADZAM SHAH</h2>
 
-    <div class="photo" aria-hidden="true"></div>
+    <div id="c-foto" class="photo" aria-hidden="true"></div>
 
     <div class="side">
       <div class="lbl">SESI</div>

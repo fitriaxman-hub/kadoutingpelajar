@@ -8,6 +8,48 @@ const form = $("form"), btn = $("btn"), statusEl = $("status");
   $(id).addEventListener("input", e => (e.target.value = e.target.value.toUpperCase()))
 );
 
+// ---------- Gambar pelajar ----------
+// Dipotong ikut nisbah kotak gambar pada kad (174 x 222) dan dimampatkan
+const FOTO_W = 522, FOTO_H = 666;
+let fotoData = "";
+
+$("foto").addEventListener("change", async e => {
+  const file = e.target.files[0];
+  fotoData = "";
+  $("preview").style.backgroundImage = "";
+  $("preview").classList.remove("ada");
+  if (!file) return;
+
+  const errEl = document.querySelector('.err[data-for="foto"]');
+  errEl.textContent = "";
+  if (!file.type.startsWith("image/")) { errEl.textContent = "Fail mesti gambar (JPG atau PNG)."; return; }
+  if (file.size > 15 * 1024 * 1024) { errEl.textContent = "Gambar terlalu besar (maksimum 15MB)."; return; }
+
+  try {
+    const url = URL.createObjectURL(file);
+    const img = await new Promise((ok, no) => {
+      const i = new Image();
+      i.onload = () => ok(i);
+      i.onerror = no;
+      i.src = url;
+    });
+    const cv = document.createElement("canvas");
+    cv.width = FOTO_W; cv.height = FOTO_H;
+    const ctx = cv.getContext("2d");
+    const scale = Math.max(FOTO_W / img.width, FOTO_H / img.height);   // cover
+    const w = img.width * scale, h = img.height * scale;
+    ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, FOTO_W, FOTO_H);
+    ctx.drawImage(img, (FOTO_W - w) / 2, (FOTO_H - h) / 2, w, h);
+    URL.revokeObjectURL(url);
+
+    fotoData = cv.toDataURL("image/jpeg", 0.9);
+    $("preview").style.backgroundImage = `url(${fotoData})`;
+    $("preview").classList.add("ada");
+  } catch {
+    errEl.textContent = "Gambar tidak dapat dibaca. Cuba gambar lain.";
+  }
+});
+
 // ---------- Pengesahan ----------
 const rules = {
   nama:  v => v.trim().length >= 3 || "Sila isi nama penuh.",
@@ -25,6 +67,8 @@ function validate() {
     $(key).classList.toggle("bad", !!msg);
     if (msg) ok = false;
   }
+  const fe = document.querySelector('.err[data-for="foto"]');
+  if (!fotoData) { fe.textContent = fe.textContent || "Sila pilih gambar anda."; ok = false; }
   return ok;
 }
 
@@ -45,6 +89,7 @@ async function renderCard(d) {
   $("c-ic").textContent = d.ic;
   $("c-reg").textContent = d.reg;
 
+  $("c-foto").style.backgroundImage = `url(${fotoData})`;
   fit($("c-nama"), 370, 17);
   fit($("c-bilik"), 215, 23, 14);
 
@@ -87,6 +132,9 @@ form.addEventListener("submit", async e => {
     if (!out.ok) throw new Error(out.error || "Gagal");
 
     form.reset();
+    fotoData = "";
+    $("preview").style.backgroundImage = "";
+    $("preview").classList.remove("ada");
     statusEl.className = "ok";
     statusEl.textContent = "Berjaya dihantar. Kad akan dicetak oleh pihak asrama.";
   } catch (err) {

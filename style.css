@@ -32,6 +32,22 @@ button:disabled{opacity:.6;cursor:wait}
 #status.ok{color:#1b7a3a;font-weight:600}
 #status.fail{color:var(--merah)}
 
+/* --- Muat naik gambar --- */
+.foto-row{display:flex;gap:14px;align-items:center}
+.preview{
+  flex:none;width:78px;height:100px;border-radius:8px;border:1.5px dashed var(--garis);
+  background:#f1f1f3 center / cover no-repeat;
+}
+.preview.ada{border-style:solid;border-color:var(--merah)}
+.foto-help{display:grid;gap:6px;justify-items:start}
+.foto-help small{font-size:12.5px;color:#66666b;line-height:1.4;font-weight:400}
+.file-btn{
+  font-size:14px;font-weight:600;color:var(--merah-tua);
+  padding:8px 14px;border:1.5px solid var(--merah);border-radius:8px;cursor:pointer;
+}
+.file-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.file-input:focus-visible ~ .err,.foto-row:has(+ .file-input:focus-visible) .file-btn{outline:3px solid #f3b7ba;outline-offset:2px}
+
 /* ============ KAD OUTING (441 x 688 px) ============ */
 .offscreen{position:fixed;left:-9999px;top:0}
 .card{
@@ -48,7 +64,7 @@ button:disabled{opacity:.6;cursor:wait}
 
 .photo{
   position:absolute;left:28px;top:182px;width:174px;height:222px;
-  background:#e4e4e6;border:2px solid #c9c9cc;
+  background:#e4e4e6 center / cover no-repeat;border:2px solid #c9c9cc;
 }
 
 .side{position:absolute;left:202px;right:0;top:182px}
