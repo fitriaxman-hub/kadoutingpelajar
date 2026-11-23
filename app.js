@@ -140,7 +140,7 @@ form.addEventListener("submit", async e => {
   } catch (err) {
     console.error(err);
     statusEl.className = "fail";
-    statusEl.textContent = "Gagal menghantar. Sila cuba lagi atau hubungi warden.";
+    statusEl.textContent = "Gagal menghantar. Sila cuba lagi atau hubungi warden. (Punca: " + (err.message || err) + ")";
   } finally {
     btn.disabled = false;
   }
