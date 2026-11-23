@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Borang Kad Outing Asrama</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="page">
+  <header class="head">
+    <img src="logo.png" alt="Politeknik Malaysia" class="head-logo">
+    <h1>Borang Kad Outing Asrama</h1>
+    <p>Sesi 2 : 2026/2027. Isi maklumat dengan betul. Kad akan dicetak oleh pihak asrama.</p>
+  </header>
+
+  <form id="form" novalidate>
+    <label>
+      <span>Nama penuh</span>
+      <input id="nama" type="text" autocomplete="off" placeholder="Seperti dalam kad pengenalan" required>
+      <small class="err" data-for="nama"></small>
+    </label>
+
+    <label>
+      <span>No bilik &amp; katil</span>
+      <input id="bilik" type="text" autocomplete="off" placeholder="Contoh: D401 (A)" required>
+      <small class="err" data-for="bilik"></small>
+    </label>
+
+    <label>
+      <span>No kad pengenalan</span>
+      <input id="ic" type="text" inputmode="numeric" autocomplete="off" placeholder="Contoh: 080604-06-0215" required>
+      <small class="err" data-for="ic"></small>
+    </label>
+
+    <label>
+      <span>No pendaftaran</span>
+      <input id="reg" type="text" autocomplete="off" placeholder="Contoh: 03DTP26F2001" required>
+      <small class="err" data-for="reg"></small>
+    </label>
+
+    <button id="btn" type="submit">Hantar maklumat</button>
+    <p id="status" role="status"></p>
+  </form>
+</main>
+
+<!-- Kad dirender di luar skrin, kemudian ditukar kepada PNG -->
+<div class="offscreen">
+  <div id="card" class="card">
+    <svg class="deco-top" viewBox="0 0 441 688" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,0 250,0 0,250" fill="#e8b4b8"/>
+      <polygon points="0,170 120,0 190,0 0,250" fill="#f1d3d5"/>
+    </svg>
+    <svg class="deco-bottom" viewBox="0 0 441 688" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="441,410 441,688 130,688" fill="#cf2027"/>
+      <polygon points="0,640 330,640 260,688 0,688" fill="#cf2027"/>
+      <polygon points="330,578 441,688 280,688" fill="#9b1c20"/>
+      <polygon points="441,610 441,688 400,688" fill="#b01f24"/>
+    </svg>
+
+    <img src="logo.png" class="card-logo" alt="">
+    <h2 class="card-univ">POLITEKNIK SULTAN ABDUL<br>HALIM MU’ ADZAM SHAH</h2>
+
+    <div class="photo" aria-hidden="true"></div>
+
+    <div class="side">
+      <div class="lbl">SESI</div>
+      <div class="box">2 : 2026/2027</div>
+      <div class="lbl">BILIK</div>
+      <div class="box" id="c-bilik">D401 (A)</div>
+    </div>
+
+    <div class="info">
+      <div id="c-nama" class="nama">NAMA PENUH</div>
+      <div id="c-ic" class="line">NO KAD PENGENALAN</div>
+      <div id="c-reg" class="line">NO PENDAFTARAN</div>
+    </div>
+
+    <div class="plus"><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
